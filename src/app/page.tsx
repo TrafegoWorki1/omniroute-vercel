@@ -27,12 +27,12 @@ import { ModelRoute, ProviderConfig, VirtualApiKey, RequestLog, DashboardMetrics
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<'routes' | 'providers' | 'keys' | 'logs' | 'playground' | 'docs'>('routes');
   const [metrics, setMetrics] = useState<DashboardMetrics>({
-    totalRequests: 124,
-    successRate: 99,
-    avgLatencyMs: 420,
-    fallbackCount: 14,
-    totalTokens: 284500,
-    requestsToday: 124,
+    totalRequests: 0,
+    successRate: 100,
+    avgLatencyMs: 0,
+    fallbackCount: 0,
+    totalTokens: 0,
+    requestsToday: 0,
   });
   const [routes, setRoutes] = useState<ModelRoute[]>([]);
   const [providers, setProviders] = useState<ProviderConfig[]>([]);

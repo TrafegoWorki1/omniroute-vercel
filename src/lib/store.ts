@@ -103,13 +103,13 @@ let memoryLogs: RequestLog[] = [];
 let memoryKeys: VirtualApiKey[] = [
   {
     id: 'default-key',
-    name: 'Default Master Key',
+    name: 'Master Key Inicial',
     keyPrefix: 'sk-omni-live',
     keyHash: 'default-active-key',
     createdAt: new Date().toISOString(),
     isActive: true,
-    totalTokens: 12450,
-    totalRequests: 42,
+    totalTokens: 0,
+    totalRequests: 0,
   },
 ];
 
