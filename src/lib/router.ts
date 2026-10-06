@@ -40,6 +40,7 @@ export async function executeChatRoute(payload: ChatCompletionPayload) {
       (p.type === 'deepseek' && requestedModel.includes('deepseek')) ||
       (p.type === 'groq' && (requestedModel.includes('llama') || requestedModel.includes('mixtral'))) ||
       (p.type === 'nvidia' && (requestedModel.includes('nvidia') || requestedModel.includes('nemotron') || requestedModel.includes('meta/'))) ||
+      (p.type === 'openrouter' && (requestedModel.includes('/') || requestedModel.startsWith('openrouter'))) ||
       p.type === 'openrouter'
     ));
 
