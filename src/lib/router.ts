@@ -39,6 +39,7 @@ export async function executeChatRoute(payload: ChatCompletionPayload) {
       (p.type === 'google' && requestedModel.includes('gemini')) ||
       (p.type === 'deepseek' && requestedModel.includes('deepseek')) ||
       (p.type === 'groq' && (requestedModel.includes('llama') || requestedModel.includes('mixtral'))) ||
+      (p.type === 'nvidia' && (requestedModel.includes('nvidia') || requestedModel.includes('nemotron') || requestedModel.includes('meta/'))) ||
       p.type === 'openrouter'
     ));
 
@@ -52,6 +53,7 @@ export async function executeChatRoute(payload: ChatCompletionPayload) {
         if (p.type === 'openai') candidates.push({ providerId: p.id, model: 'gpt-4o-mini', timeoutMs: 10000 });
         if (p.type === 'google') candidates.push({ providerId: p.id, model: 'gemini-2.0-flash', timeoutMs: 10000 });
         if (p.type === 'deepseek') candidates.push({ providerId: p.id, model: 'deepseek-chat', timeoutMs: 15000 });
+        if (p.type === 'nvidia') candidates.push({ providerId: p.id, model: 'meta/llama-3.3-70b-instruct', timeoutMs: 15000 });
         if (p.type === 'openrouter') candidates.push({ providerId: p.id, model: 'auto', timeoutMs: 15000 });
       }
     }
@@ -202,7 +204,7 @@ async function callProvider(provider: any, model: string, payload: ChatCompletio
     max_tokens: payload.max_tokens,
   };
 
-  if (provider.type === 'openai' || provider.type === 'deepseek' || provider.type === 'groq' || provider.type === 'openrouter') {
+  if (provider.type === 'openai' || provider.type === 'deepseek' || provider.type === 'groq' || provider.type === 'openrouter' || provider.type === 'nvidia') {
     headers['Authorization'] = `Bearer ${provider.apiKey}`;
     if (provider.type === 'openrouter') {
       headers['HTTP-Referer'] = 'https://omniroute.vercel.app';

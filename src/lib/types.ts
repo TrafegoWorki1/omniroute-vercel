@@ -5,6 +5,7 @@ export type ProviderType =
   | 'deepseek' 
   | 'groq' 
   | 'openrouter' 
+  | 'nvidia' 
   | 'custom';
 
 export interface ProviderConfig {

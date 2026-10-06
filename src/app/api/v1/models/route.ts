@@ -25,6 +25,9 @@ export async function GET() {
     { id: 'gemini-2.0-flash', object: 'model', owned_by: 'google' },
     { id: 'deepseek-chat', object: 'model', owned_by: 'deepseek' },
     { id: 'llama-3.3-70b-versatile', object: 'model', owned_by: 'groq' },
+    { id: 'meta/llama-3.3-70b-instruct', object: 'model', owned_by: 'nvidia' },
+    { id: 'deepseek-ai/deepseek-r1', object: 'model', owned_by: 'nvidia' },
+    { id: 'nvidia/llama-3.1-nemotron-70b-instruct', object: 'model', owned_by: 'nvidia' },
   ];
 
   return new Response(

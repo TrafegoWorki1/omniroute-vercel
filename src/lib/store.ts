@@ -50,6 +50,14 @@ export const DEFAULT_PROVIDERS: ProviderConfig[] = [
     apiKey: process.env.OPENROUTER_API_KEY || '',
     isActive: true,
   },
+  {
+    id: 'nvidia',
+    name: 'NVIDIA NIM (build.nvidia.com)',
+    type: 'nvidia',
+    baseUrl: 'https://integrate.api.nvidia.com/v1',
+    apiKey: process.env.NVIDIA_API_KEY || process.env.NIM_API_KEY || '',
+    isActive: true,
+  },
 ];
 
 export const DEFAULT_ROUTES: ModelRoute[] = [
