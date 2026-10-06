@@ -57,9 +57,15 @@ export async function executeChatRoute(payload: ChatCompletionPayload) {
     }
   }
 
-  if (candidates.length === 0) {
-    // Return a mock simulated response if no provider key is configured yet
-    const simulatedText = `[OmniRoute Vercel Gateway] Roteador ativo! Para respostas reais de IA, adicione suas chaves de API (OpenAI, Anthropic, Gemini, DeepSeek) no painel. Modelo solicitado: "${requestedModel}".`;
+  // Filter candidates to only those with configured API keys
+  const validCandidates = candidates.filter(c => {
+    const p = providers.find(prov => prov.id === c.providerId);
+    return Boolean(p && p.apiKey && p.isActive);
+  });
+
+  if (validCandidates.length === 0) {
+    // Return a helpful simulated response if no provider key is configured yet
+    const simulatedText = `[OmniRoute Vercel Gateway] Roteador ativo e funcionando no Edge Runtime! Para receber respostas reais dos modelos, configure suas chaves de API (OpenAI, Anthropic, Gemini, DeepSeek, Groq) nas variáveis de ambiente da Vercel ou no painel. Modelo requisitado: "${requestedModel}".`;
     const latency = Date.now() - startTime;
     
     if (payload.stream) {
@@ -79,7 +85,7 @@ export async function executeChatRoute(payload: ChatCompletionPayload) {
       usage: { prompt_tokens: 15, completion_tokens: 45, total_tokens: 60 }
     }), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
     });
   }
 
@@ -87,8 +93,8 @@ export async function executeChatRoute(payload: ChatCompletionPayload) {
   let successfulResponse: Response | null = null;
   let successfulCandidate: { providerId: string; model: string } | null = null;
 
-  for (let i = 0; i < candidates.length; i++) {
-    const candidate = candidates[i];
+  for (let i = 0; i < validCandidates.length; i++) {
+    const candidate = validCandidates[i];
     const provider = providers.find(p => p.id === candidate.providerId);
     if (!provider || !provider.apiKey) continue;
 
